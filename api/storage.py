@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
+from datetime import datetime as dt
 
 from models.base import Base
 from models.task import Task
@@ -13,12 +14,12 @@ session = Session()
 Base.metadata.create_all(engine)
 
 
-def create_task(**kwargs):
+def create_task(param):
     data = {
-        "name": kwargs.get("name"),
-        "remark": kwargs.get("remark"),
-        "deadline": kwargs.get("deadline"),
-        "done": kwargs.get("done")
+        "name": param.get("name"),
+        "remark": param.get("remark"),
+        "deadline": dt.strptime(param.get("deadline"), "%Y-%m-%d"),
+        "done": param.get("done")
     }
     new_task = Task(**data)
     session.add(new_task)
