@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "task": {
+    "type": "object",
+    "required": [
+      "id",
+      "name",
+      "deadline"
+    ],
+    "properties": {
+      "id"       : { "type": "integer" },
+      "name"     : { "type": "string" },
+      "remark"   : { "type": "string" },
+      "deadline" : { "type": "string", "format": "date-time" },
+      "done"     : { "type": "boolean",  "default": false }
+    }
+  }
+}
