@@ -1,6 +1,7 @@
 import os
 import json
 import falcon
+import datetime
 
 class Task(object):
 
@@ -13,10 +14,22 @@ class Task(object):
 
         if tasks == None or len(tasks) == 0:
             res.status = falcon.HTTP_200
-            res.body = json.dumps({"test":"Not Found"})
+            res.body = 'no data'
+
         else:
+            tasks_dict = []
+            for task in tasks:
+                task_dict = {
+                    "id": task.id,
+                    "name": task.name,
+                    "remark": task.remark,
+                    "deadline": task.deadline.isoformat(),
+                    "done": task.done
+                }
+                tasks_dict.append(task_dict)
+
             res.status = falcon.HTTP_200
-            res.body = json.dumps(tasks)
+            res.body = json.dumps(tasks_dict)
 
 
     def on_post(self, req, res):
@@ -27,9 +40,15 @@ class Task(object):
 
         try:
             param = json.loads(raw_json, encoding='utf-8')
+            success = self.storage.create_task(param)
 
-            res.status = falcon.HTTP_201
-            res.body = json.dumps(param)
+            if success:
+                res.status = falcon.HTTP_201
+                res.body = json.dumps(param)
+            else:
+                res.status = falcon.HTTP_400
+
+
         except Exception as ex:
             raise falcon.HTTPError(falcon.HTTP_400,'Invalid JSON',ex.message)
 

@@ -13,9 +13,9 @@ session = Session()
 Base.metadata.create_all(engine)
 
 
-def create_task(name, **kwargs):
+def create_task(**kwargs):
     data = {
-        "name": name,
+        "name": kwargs.get("name"),
         "remark": kwargs.get("remark"),
         "deadline": kwargs.get("deadline"),
         "done": kwargs.get("done")
