@@ -1,4 +1,4 @@
-falcon example
+RESTful APIのサンプル
 ===
 
 
@@ -28,11 +28,11 @@ falconを使ったWeb APIサーバのサンプル
 
 
 POSTのテスト
-`curl -w '\n' 'http://localhost:8000/' --data '{"name":"test","task":"task-test"}' -XPOST`
+`curl -w '\n' 'http://localhost:8000/' --data 'json形式のパラメータ -XPOST`
 
 
 
-
+<!--
 参考
 https://impythonist.wordpress.com/2015/09/12/build-massively-scalable-restful-api-with-falcon-and-pypy/
 http://qiita.com/yasuhiroki/items/a569d3371a66e365316f
@@ -49,3 +49,4 @@ http://sbox.hatenablog.jp/entry/2012/03/09/071051
 
 https://github.com/davehalladay/openr-flask-api/blob/45a52b4ca04c63895550653f2e2676a875bad489/models/user.py
 https://github.com/davehalladay/openr-flask-api/blob/45a52b4ca04c63895550653f2e2676a875bad489/database.py
+-->
