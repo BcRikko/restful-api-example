@@ -7,7 +7,7 @@ from models.base import Base
 from models.task import Task
 
 
-engine = create_engine('sqlite:///db.sqlite3')
+engine = create_engine("sqlite:///db.sqlite3")
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -27,20 +27,20 @@ def create_task(param):
     return new_task.id
 
 
-def update_task(id, **kwargs):
+def update_task(id, param):
     try:
         task = session.query(Task).filter(Task.id == id).one()
     except (MultipleResultsFound, NoResultFound):
         return False
 
-    if kwargs["name"]:
-        task.name = kwargs["name"]
-    if kwargs["remark"]:
-        task.remark = kwargs["remark"]
-    if kwargs["deadline"]:
-        task.deadline = kwargs["deadline"]
-    if kwargs["done"]:
-        task.done = kwargs["done"]
+    if param.get("name"):
+        task.name = param.get("name")
+    if param.get("remark"):
+        task.remark = param.get("remark")
+    if param.get("deadline"):
+        task.deadline = dt.strptime(param.get("deadline"), "%Y-%m-%d")
+    if param.get("done"):
+        task.done = param.get("done")
 
     session.add(task)
     session.commit()
